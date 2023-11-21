@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import { send } from "./send";
+import { send } from "./operations";
 import { diff } from "./diff";
 import { Serializer } from "./serializer";
 import data from "./data";
@@ -18,7 +18,8 @@ const transport = new ServerTransport(
 const parsed = data.map((o) => Serializer.parse(o));
 const ids = parsed.map((o) => o.id);
 const existing = await diff(projectId, ids);
-
 const newObjects = parsed.filter((o) => !existing.includes(o.id));
 
-await send(newObjects, projectId);
+const objectId = await send(newObjects, projectId);
+
+// TODO: Create Commit

@@ -1,4 +1,4 @@
-import { Serializer } from "./serializer";
+import { Serializer } from "../serializer";
 
 const speckleURL = process.env.SPECKLE_URL as string;
 const speckleToken = process.env.SPECKLE_TOKEN;
