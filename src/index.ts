@@ -16,7 +16,7 @@ const transport = new ServerTransport(
   projectId
 );
 
-const objectId = await Sender.send(data, projectId);
+const objectId = await Sender.send(data, projectId, [transport]);
 
 console.timeEnd("index.ts");
 // TODO: Create Commit

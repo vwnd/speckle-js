@@ -2,6 +2,10 @@ import crypto from "crypto";
 import { Base } from "./model/base";
 
 export class Serializer {
+  public serialize(object: Base): string {
+    return JSON.stringify(object);
+  }
+
   static parse(data: object) {
     const id = this.hash(data).substring(0, 32);
 
