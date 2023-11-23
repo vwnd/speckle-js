@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import data from "./data";
 
 import { ServerTransport } from "./transports";
-import { config } from "./config";
+import { config } from "./config/config";
 import { Sender } from "./operations";
 
 dotenv.config();

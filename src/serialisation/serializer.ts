@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import { Base } from "./model/base";
+import { Base } from "../model/base";
 
 export class Serializer {
   public serialize(object: Base): string {

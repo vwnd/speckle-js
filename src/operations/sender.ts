@@ -1,5 +1,5 @@
-import { Serializer } from "../serializer";
-import { diff } from "../diff";
+import { Serializer } from "../serialisation/serializer";
+import { diff } from "../utils/diff";
 import { Base } from "../model/base";
 import { ServerTransport } from "../transports/server.transport";
 
