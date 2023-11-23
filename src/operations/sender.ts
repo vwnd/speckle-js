@@ -1,7 +1,7 @@
 import { Serializer } from "../serializer";
 import { diff } from "../diff";
 import { Base } from "../model/base";
-import { ServerTransport } from "../server.transport";
+import { ServerTransport } from "../transports/server.transport";
 
 export class Sender {
   private static readonly speckleURL = process.env.SPECKLE_URL as string;
