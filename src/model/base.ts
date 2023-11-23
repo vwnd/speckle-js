@@ -1,3 +1,3 @@
-export interface IBase {
+export class Base {
   id?: string;
 }

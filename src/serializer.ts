@@ -1,10 +1,11 @@
 import crypto from "crypto";
+import { Base } from "./model/base";
 
 export class Serializer {
   static parse(data: object) {
     const id = this.hash(data).substring(0, 32);
 
-    const result = {
+    const result: Base = {
       ...data,
       id,
     };

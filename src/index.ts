@@ -1,13 +1,13 @@
 import dotenv from "dotenv";
 import data from "./data";
 
-import { send } from "./operations";
-import { diff } from "./diff";
-import { Serializer } from "./serializer";
 import { ServerTransport } from "./server.transport";
 import { config } from "./config";
+import { Sender } from "./operations";
 
 dotenv.config();
+
+console.time("index.ts");
 
 const projectId = "f18f27523f";
 
@@ -16,12 +16,7 @@ const transport = new ServerTransport(
   projectId
 );
 
-const parsed = data.map((o) => Serializer.parse(o));
-const ids = parsed.map((o) => o.id);
-const existing = await diff(projectId, ids);
-const newObjects = parsed.filter((o) => !existing.includes(o.id));
+const objectId = await Sender.send(data, projectId);
 
-const objectId = await send(newObjects, projectId);
-
-console.log("End");
+console.timeEnd("index.ts");
 // TODO: Create Commit
