@@ -12,7 +12,7 @@ export class ServerTransport implements Transport {
     private readonly projectId: string
   ) {}
 
-  saveObject(object: Base) {
+  saveObject(objectId: string, serializedObject: string) {
     throw new Error("Method not implemented.");
   }
 }

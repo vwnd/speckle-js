@@ -13,7 +13,10 @@ export class Sender {
     transports: ServerTransport[]
   ) {
     const serializer = new Serializer();
-    const serialized = serializer.serialize(data);
+    const { id, data: serializedObject } = serializer.serialize(data);
+    for (const transport of transports) {
+      transport.saveObject(id, serializedObject);
+    }
     //   const parsed = data.map((o: any): Base => Serializer.parse(o));
     //   const ids = parsed.map((o: Base) => o.id);
     //   const existing = await diff(projectId, ids);
