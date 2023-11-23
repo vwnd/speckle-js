@@ -1,9 +1,10 @@
+import { IBase } from "../model/base";
 import { Serializer } from "../serializer";
 
 const speckleURL = process.env.SPECKLE_URL as string;
 const speckleToken = process.env.SPECKLE_TOKEN;
 
-export async function send(data: any[], projectId: string) {
+export async function send(data: IBase[], projectId: string) {
   if (data.length <= 0) return;
 
   const parsedData = data.map((o) => Serializer.parse(o));
