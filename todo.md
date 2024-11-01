@@ -7,7 +7,3 @@
 - [x] send-data sample
 - [ ] view-data sample
 - [ ] app sample
-
-### In-progress
-
-### Completed
