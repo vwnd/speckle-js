@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@speckle/objectloader": "^2.22.2",
+    "@speckle/objectsender": "^2.22.2",
     "dotenv": "^16.4.5"
   }
 }
