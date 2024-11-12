@@ -1,5 +1,7 @@
 import { Base, send } from "@speckle/objectsender";
 import { createVersion } from "./utils/create-version";
+import { readFileSync } from "fs";
+import { Mesh } from "./utils/mesh";
 
 const projectId = "9ff253b70b";
 const modelId = "31fdd47483";
@@ -7,10 +9,26 @@ const modelId = "31fdd47483";
 export async function sendData() {
   console.log("3 - Send Data");
 
+  var data = JSON.parse(readFileSync("data/js.json", "utf-8"));
+  const foregroundGeometry = data.fg;
+  const backgroundGeometry = data.bg;
+
+  const fgMesh = new Mesh();
+  fgMesh.vertices = foregroundGeometry.vertices;
+  fgMesh.faces = foregroundGeometry.faces;
+  fgMesh.colors = foregroundGeometry.colors;
+  fgMesh.textureCoordinates = foregroundGeometry.textureCoordinates;
+
+  const bgMesh = new Mesh();
+  bgMesh.vertices = backgroundGeometry.vertices;
+  bgMesh.faces = backgroundGeometry.faces;
+  bgMesh.colors = backgroundGeometry.colors;
+  bgMesh.textureCoordinates = backgroundGeometry.textureCoordinates;
+
   const message = new Base({
-    message:
-      "A wizard is never late, nor is he early, he arrives precisely when he means to.",
-    author: "Gandalf, the Grey",
+    speckle_type: "TypeScript.Model",
+    name: "JavaScript Model",
+    displayValue: [fgMesh, bgMesh],
   });
 
   const result = await send(message, {
