@@ -1,4 +1,6 @@
 export async function projectsInfo() {
+  console.log("1 - Projects Info");
+
   const query = `#graphql
   query UserProjects {
       activeUser {

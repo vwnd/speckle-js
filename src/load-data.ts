@@ -1,10 +1,11 @@
 import ObjectLoader from "@speckle/objectloader";
-import dotenv from "dotenv/config";
 
 const projectId = "9ff253b70b";
 const objectId = "d8f03ed8f1de1a9697bfd85c2f18fd35";
 
 export async function loadData() {
+  console.log("2 - Load Data");
+
   const loader = new ObjectLoader({
     objectId,
     token: process.env.SPECKLE_TOKEN as string,
