@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch src/index.ts",
+    "web": "vite"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +18,9 @@
   "dependencies": {
     "@speckle/objectloader": "^2.22.2",
     "@speckle/objectsender": "^2.22.2",
+    "@speckle/viewer": "^2.22.2",
     "dotenv": "^16.4.5",
-    "hex-argb-converter": "^0.0.1"
+    "hex-argb-converter": "^0.0.1",
+    "vite": "^5.4.11"
   }
 }
