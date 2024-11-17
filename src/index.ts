@@ -4,11 +4,11 @@ import { config } from "./utils/config";
 async function main() {
   console.log("Speckle for TypeScript/JavaScript Examples");
 
-  await config();
+  const { runLoadData, runProjectsInfo, runSendData } = config();
 
-  await projectsInfo();
-  await loadData();
-  await sendData();
+  if (runProjectsInfo) await projectsInfo();
+  if (runLoadData) await loadData();
+  if (runSendData) await sendData();
 }
 
 main();
