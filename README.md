@@ -275,11 +275,6 @@ To exercise what we learned, we will implement another useful object type, Rende
 
 ```tsx
 import { Base } from "@speckle/objectsender";
-import { hexToArgb } from "hex-argb-converter";
-
-const yellow = 4294299970;
-const black = 4278190080;
-const lightGray = 0;
 
 export class RenderMaterial extends Base {
   speckle_type: string = "Objects.Other.RenderMaterial";
@@ -376,6 +371,8 @@ export async function sendData() {
 Whether to represent Layers, Categories, Tags, Collections, Groups, or hierarchical containers, it is common to see a natural grouping of objects within a 3D model. The `Collection` type provides a unified way to represent hierarchical collections of Speckle objects.
 
 ```tsx
+import { Base, Detach } from "@speckle/objectsender";
+
 export class Collection<T extends Base> extends Base {
   @Detach()
   elements: T[];

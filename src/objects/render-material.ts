@@ -1,9 +1,4 @@
 import { Base } from "@speckle/objectsender";
-import { hexToArgb } from "hex-argb-converter";
-
-const yellow = 4294299970;
-const black = 4278190080;
-const lightGray = 0;
 
 export class RenderMaterial extends Base {
   speckle_type: string = "Objects.Other.RenderMaterial";
