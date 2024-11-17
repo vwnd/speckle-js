@@ -96,7 +96,7 @@ export async function projectsInfo() {
 1. Developing against a GraphQL API using the native fetch API can be easier using clients built specifically for GraphQL. Check out [Apollo](https://www.apollographql.com/), [graphql-request](https://www.npmjs.com/package/graphql-request) or other options.
 2. GraphQL APIs are fully typed and there are solutions to build TypeScript types automatically so that your queries become even easier. Have a look at [GraphQL Codegen](https://the-guild.dev/graphql/codegen).
 
-# 2 - Load Data
+# 2. Load Data
 
 On this exercise we will see how to load data from Speckle using the `@speckle/objectloader` library. Let’s see if we manage to calculate the total area on the model below.
 
@@ -150,6 +150,8 @@ export async function loadData() {
     console.log(`Total area: ${(totalArea as number).toFixed(2)} ${units}`);
   }
   ```
+
+# 3. Send Data
 
 We will make use of the `@speckle/objectsender` library to make our own sender. Let’s look at some basic objects we can create using it.
 
