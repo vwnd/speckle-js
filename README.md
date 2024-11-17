@@ -100,7 +100,7 @@ export async function projectsInfo() {
 
 On this exercise we will see how to load data from Speckle using the `@speckle/objectloader` library. Let’s see if we manage to calculate the total area on the model below.
 
-<iframe title="Speckle" src="https://app.speckle.systems/projects/9ff253b70b/models/f09b6887fc#embed=%7B%22isEnabled%22%3Atrue%7D" width="600" height="400" frameborder="0"></iframe>
+[Checkout the example model.](https://app.speckle.systems/projects/9ff253b70b/models/f09b6887fc)
 
 To use the object loader, we will need to pieces of information, an **object id** and the **project id** to which this object belongs. We can inspect this model version and get the root object id we would like to load.
 
