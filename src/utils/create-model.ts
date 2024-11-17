@@ -9,11 +9,12 @@ export async function createModel(): Promise<Base> {
     "#323330",
     "#F0DB4F"
   );
+
   const tsLogo = await createLogo(
     "TypeScript",
     "data/ts.json",
-    "#3178C6",
-    "#FFFFFF"
+    "#FFFFFF",
+    "#3178C6"
   );
 
   const nodeLogo = await createLogo(

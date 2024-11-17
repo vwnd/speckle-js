@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start:all": "tsx src/index.ts",
+    "start": "tsx src/index.ts",
     "start:projects-info": "tsx src/index.ts 1",
     "start:load-data": "tsx src/index.ts 2",
     "start:send-data": "tsx src/index.ts 3",
