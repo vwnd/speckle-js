@@ -1,6 +1,8 @@
 # Speckle for TypeScript Geeks
 
-Welcome to the workshop, we will learn the basics of how to interact with Speckle using the most popular web programming language. We will learn how to get some info from a project using the **GraphQL** API, how to load some data using the `@speckle/objectloader` , how to publish data using the recently added `@speckle/objectsender` library and finally how to use `@speckle/viewer` to view our models.
+Welcome to the workshop, we will learn the basics of how to interact with Speckle using the most popular web programming language. We will learn how to get some info from a project using the **GraphQL** API, how to load some data using the `@speckle/objectloader` and how to publish data using the recently added `@speckle/objectsender`.
+
+The data used during the workshop is publicly available on the following Speckle Project: https://app.speckle.systems/projects/9ff253b70b/
 
 # Help
 
