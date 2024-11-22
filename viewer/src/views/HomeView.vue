@@ -1,9 +1,32 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import ModelInput from "@/components/ModelInput.vue";
+import ModelViewer from "@/components/ModelViewer.vue";
+import { ref } from "vue";
+
+const model = ref<string | null>(null);
+
+const clearModel = () => {
+  model.value = null;
+};
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
+  <main
+    class="flex flex-col min-h-screen bg-background justify-center items-center"
+  >
+    <ModelViewer
+      v-if="model"
+      :model="model"
+      @failed="clearModel"
+      class="flex-1"
+    />
+    <ModelInput
+      v-else
+      @load="
+        (url) => {
+          model = url;
+        }
+      "
+    />
   </main>
 </template>
