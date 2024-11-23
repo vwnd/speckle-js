@@ -4,11 +4,13 @@
       class="animate-spin absolute inset-0 m-auto z-10"
       v-if="isLoading"
     />
+    <ModelInfoCard
+      v-if="!isLoading"
+      :area="area"
+      units="m²"
+      class="fixed top-4 left-4 z-10"
+    />
     <div id="viewer-container" ref="container" class="h-full w-full absolute" />
-    <dir v-if="!isLoading" class="text-5xl font-serif font-semibold">
-      Worth it $6.2 million
-    </dir>
-    <DuctTape v-if="!isLoading" />
   </div>
 </template>
 
@@ -23,7 +25,7 @@ import {
   Viewer,
 } from "@speckle/viewer";
 import { useToast } from "./ui/toast";
-import DuctTape from "./DuctTape.vue";
+import ModelInfoCard from "./model/ModelInfoCard.vue";
 
 const props = defineProps<{
   model: string;
