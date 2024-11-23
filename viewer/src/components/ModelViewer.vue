@@ -1,6 +1,6 @@
 <template>
   <div class="h-full w-full items-center justify-center relative">
-    <Loader
+    <Loader2
       class="animate-spin absolute inset-0 m-auto z-10"
       v-if="isLoading"
     />
@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { Loader } from "lucide-vue-next";
+import { Loader2 } from "lucide-vue-next";
 import { onMounted, onUnmounted, ref } from "vue";
 import {
   CameraController,
