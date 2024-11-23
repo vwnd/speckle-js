@@ -5,6 +5,7 @@
       v-if="isLoading"
     />
     <div id="viewer-container" ref="container" class="h-full w-full absolute" />
+    <dir v-if="!isLoading">Model Area: {{ area.toLocaleString() }}</dir>
   </div>
 </template>
 
@@ -30,6 +31,7 @@ const isLoading = ref(false);
 const { toast } = useToast();
 
 const container = ref<HTMLElement | null>(null);
+const area = ref(0);
 
 async function initViewer() {
   if (!container.value) return;
@@ -52,6 +54,15 @@ async function initViewer() {
     );
     await viewer.loadObject(loader, true);
   }
+
+  const rooms = viewer.getWorldTree().findAll((node) => {
+    if (!node.model.raw.speckle_type) return;
+    return node.model.raw.speckle_type.includes("Room");
+  });
+
+  area.value = rooms.reduce((acc, room) => {
+    return acc + room.model.raw.area;
+  }, 0);
 }
 
 onMounted(async () => {

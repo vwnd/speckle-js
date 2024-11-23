@@ -1,7 +1,13 @@
 <template>
   <div>
     <div class="flex w-full max-w-sm items-center gap-1.5">
-      <Input id="model" type="text" placeholder="Model URL" v-model="model" />
+      <Input
+        id="model"
+        type="text"
+        placeholder="Model URL"
+        v-model="model"
+        class="w-[400px]"
+      />
       <Button type="submit" @click="handleLoadModel"> Load </Button>
     </div>
   </div>
