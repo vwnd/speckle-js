@@ -6,8 +6,8 @@
     />
     <ModelInfoCard
       v-if="!isLoading"
-      :area="area"
-      units="m²"
+      :area="computedArea"
+      units="ft²"
       class="fixed top-4 left-4 z-10"
     />
     <div id="viewer-container" ref="container" class="h-full w-full absolute" />
@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { Loader2 } from "lucide-vue-next";
-import { onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 import {
   CameraController,
   DefaultViewerParams,
@@ -24,6 +24,8 @@ import {
   SpeckleLoader,
   UrlHelper,
   Viewer,
+  ViewerEvent,
+  type SelectionEvent,
 } from "@speckle/viewer";
 import { useToast } from "./ui/toast";
 import ModelInfoCard from "./model/ModelInfoCard.vue";
@@ -34,11 +36,35 @@ const props = defineProps<{
 
 const emit = defineEmits(["failed"]);
 const isLoading = ref(false);
+const selected = ref<string[]>([]);
 
 const { toast } = useToast();
 
 const container = ref<HTMLElement | null>(null);
 const area = ref(0);
+const viewerRef = ref<Viewer | null>(null);
+
+const computedArea = computed(() => {
+  if (selected.value.length === 0) {
+    return area.value;
+  } else {
+    let selectedArea = 0;
+    if (viewerRef.value) {
+      const selectedNodes = viewerRef.value.getWorldTree().findAll((node) => {
+        return selected.value.includes(node.model.id);
+      });
+
+      selectedArea = selectedNodes.reduce((acc, node) => {
+        return acc + node.model.raw.area;
+      }, 0);
+    }
+
+    if (selectedArea === 0) {
+      return area.value;
+    }
+    return selectedArea;
+  }
+});
 
 async function initViewer() {
   if (!container.value) return;
@@ -49,6 +75,7 @@ async function initViewer() {
   );
 
   const viewer = new Viewer(container.value, DefaultViewerParams);
+  viewerRef.value = viewer;
 
   viewer.createExtension(CameraController);
 
@@ -63,6 +90,14 @@ async function initViewer() {
     id: "selectionMaterial",
     lineWeight: 1,
   };
+
+  viewer.on(ViewerEvent.ObjectClicked, (event: SelectionEvent | null) => {
+    if (event) {
+      selected.value = [event.hits[0].node.model.id];
+    } else {
+      selected.value = [];
+    }
+  });
 
   await viewer.init();
 
@@ -127,6 +162,8 @@ onUnmounted(() => {
     title: "Viewer unmounted",
     description: "Viewer has been unmounted.",
   });
+  viewerRef.value?.dispose();
+  viewerRef.value = null;
 });
 </script>
 
