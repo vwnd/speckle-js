@@ -13,7 +13,8 @@ const clearModel = () => {
 };
 
 const captureScreenshot = async () => {
-  const buttons = document.querySelectorAll(".screenshot-hide");
+  const buttons =
+    document.querySelectorAll<HTMLButtonElement>(".screenshot-hide");
   buttons.forEach((button) => (button.style.display = "none"));
 
   const element = document.querySelector("main");
