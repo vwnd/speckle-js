@@ -20,6 +20,7 @@ import { onMounted, onUnmounted, ref } from "vue";
 import {
   CameraController,
   DefaultViewerParams,
+  SelectionExtension,
   SpeckleLoader,
   UrlHelper,
   Viewer,
@@ -48,9 +49,22 @@ async function initViewer() {
   );
 
   const viewer = new Viewer(container.value, DefaultViewerParams);
-  await viewer.init();
 
   viewer.createExtension(CameraController);
+
+  const selection = viewer.createExtension(SelectionExtension);
+  selection.options.selectionMaterialData = {
+    color: 0x0d9488,
+    opacity: 1,
+    roughness: 1,
+    metalness: 0,
+    vertexColors: false,
+    emissive: 0x0d9488,
+    id: "selectionMaterial",
+    lineWeight: 1,
+  };
+
+  await viewer.init();
 
   for (const url of urls) {
     const loader = new SpeckleLoader(
@@ -72,7 +86,7 @@ async function initViewer() {
     const rvs = renderTree.getRenderViewsForNode(room);
 
     const materialData = {
-      color: 0xffff00,
+      color: 0x808080,
       opacity: 1,
       roughness: 1,
       metalness: 0,
