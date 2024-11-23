@@ -5,7 +5,10 @@
       v-if="isLoading"
     />
     <div id="viewer-container" ref="container" class="h-full w-full absolute" />
-    <dir v-if="!isLoading">Model Area: {{ area.toLocaleString() }}</dir>
+    <dir v-if="!isLoading" class="text-5xl font-serif font-semibold">
+      Worth it $6.2 million
+    </dir>
+    <DuctTape v-if="!isLoading" />
   </div>
 </template>
 
@@ -20,6 +23,7 @@ import {
   Viewer,
 } from "@speckle/viewer";
 import { useToast } from "./ui/toast";
+import DuctTape from "./DuctTape.vue";
 
 const props = defineProps<{
   model: string;
@@ -59,6 +63,22 @@ async function initViewer() {
     if (!node.model.raw.speckle_type) return;
     return node.model.raw.speckle_type.includes("Room");
   });
+
+  for (const room of rooms) {
+    const nodeId = room.model.id;
+    const renderTree = viewer.getWorldTree().getRenderTree(nodeId)!;
+    const rvs = renderTree.getRenderViewsForNode(room);
+
+    const materialData = {
+      color: 0xffff00,
+      opacity: 1,
+      roughness: 1,
+      metalness: 0,
+      vertexColors: false,
+    };
+
+    viewer.speckleRenderer.setMaterial(rvs, materialData);
+  }
 
   area.value = rooms.reduce((acc, room) => {
     return acc + room.model.raw.area;
