@@ -8,7 +8,7 @@ import vueDevTools from "vite-plugin-vue-devtools";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/<REPO>/",
+  base: "https://github.com/vwnd/speckle-js/",
   plugins: [vue(), vueDevTools()],
   resolve: {
     alias: {
