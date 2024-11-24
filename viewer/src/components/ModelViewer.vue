@@ -7,6 +7,7 @@
     <ModelInfoCard
       v-if="!isLoading"
       :area="computedArea"
+      :levels="levels"
       units="ft²"
       class="fixed top-4 left-4 z-10"
     />
@@ -29,6 +30,7 @@ import {
 } from "@speckle/viewer";
 import { useToast } from "./ui/toast";
 import ModelInfoCard from "./model/ModelInfoCard.vue";
+import { getLevels, type Level } from "@/lib/viewer/get-levels";
 
 const props = defineProps<{
   model: string;
@@ -41,8 +43,9 @@ const selected = ref<string[]>([]);
 const { toast } = useToast();
 
 const container = ref<HTMLElement | null>(null);
-const area = ref(0);
 const viewerRef = ref<Viewer | null>(null);
+const area = ref(0);
+const levels = ref<Level[]>([]);
 
 const computedArea = computed(() => {
   if (selected.value.length === 0) {
@@ -75,6 +78,9 @@ async function initViewer() {
   );
 
   const viewer = new Viewer(container.value, DefaultViewerParams);
+
+  await viewer.init();
+
   viewerRef.value = viewer;
 
   viewer.createExtension(CameraController);
@@ -87,19 +93,21 @@ async function initViewer() {
     metalness: 0,
     vertexColors: false,
     emissive: 0x0d9488,
-    id: "selectionMaterial",
+    id: "selected-material",
     lineWeight: 1,
   };
 
   viewer.on(ViewerEvent.ObjectClicked, (event: SelectionEvent | null) => {
     if (event) {
-      selected.value = [event.hits[0].node.model.id];
+      if (event.multiple) {
+        selected.value = [...selected.value, event.hits[0].node.model.id];
+      } else {
+        selected.value = [event.hits[0].node.model.id];
+      }
     } else {
       selected.value = [];
     }
   });
-
-  await viewer.init();
 
   for (const url of urls) {
     const loader = new SpeckleLoader(
@@ -120,16 +128,19 @@ async function initViewer() {
     const renderTree = viewer.getWorldTree().getRenderTree(nodeId)!;
     const rvs = renderTree.getRenderViewsForNode(room);
 
-    const materialData = {
+    viewer.speckleRenderer.setMaterial(rvs, {
       color: 0x808080,
       opacity: 1,
       roughness: 1,
       metalness: 0,
       vertexColors: false,
-    };
-
-    viewer.speckleRenderer.setMaterial(rvs, materialData);
+      emissive: 0x0d9488,
+      id: "room-material",
+      lineWeight: 1,
+    });
   }
+
+  levels.value = getLevels(viewer);
 
   area.value = rooms.reduce((acc, room) => {
     return acc + room.model.raw.area;
